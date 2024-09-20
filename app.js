@@ -23,6 +23,20 @@ app.get('/restaurant/:id', (req, res) => {
   res.render('detail', {restaurant})
 })
 
+// 添加搜索路由
+app.get('/search', (req, res) => {
+  const keyword = req.query.keyword ? req.query.keyword.trim().toLowerCase() : '';
+  const filteredRestaurants = keyword
+    ? restaurants.filter(restaurant => {
+        return (restaurant.name && restaurant.name.toLowerCase().includes(keyword)) ||
+               (restaurant.category && restaurant.category.toLowerCase().includes(keyword)) ||
+               (restaurant.description && restaurant.description.toLowerCase().includes(keyword));
+      })
+    : restaurants;
+  
+  res.render('index', { restaurants: filteredRestaurants, keyword: keyword });
+});
+
 app.listen(port, () => {
   console.log(`express server is running on http://localhost:${port}`)
 })
