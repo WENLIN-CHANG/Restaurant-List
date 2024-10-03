@@ -14,8 +14,12 @@ app.get('/', (req, res) => {
 })
 
 app.get('/restaurants', (req, res) => {
-  res.render('index', {restaurants: restaurants})
-})
+  const restaurantsInRows = [];
+  for (let i = 0; i < restaurants.length; i += 3) {
+    restaurantsInRows.push(restaurants.slice(i, i + 3));
+  }
+  res.render('index', { restaurantsInRows: restaurantsInRows });
+});
 
 app.get('/restaurant/:id', (req, res) => {
   const id = req.params.id
@@ -34,7 +38,12 @@ app.get('/search', (req, res) => {
       })
     : restaurants;
   
-  res.render('index', { restaurants: filteredRestaurants, keyword: keyword });
+  const restaurantsInRows = [];
+  for (let i = 0; i < filteredRestaurants.length; i += 3) {
+    restaurantsInRows.push(filteredRestaurants.slice(i, i + 3));
+  }
+  
+  res.render('index', { restaurantsInRows: restaurantsInRows, keyword: keyword });
 });
 
 app.listen(port, () => {

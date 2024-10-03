@@ -18,29 +18,21 @@
 <!-- restaurant list -->
 <div class="container mt-5">
   <div class="row">
-    {{#each restaurants as |restaurant|}}
-    <div class="col-md-10 col-12 mx-auto">
-      <div class="row row-cols-sm-3">
-        <a href="/restaurant/{{restaurant.id}}" class="text-secondary">
-          <div class="card mb-3">
-            <img class="card-img-top" src="{{restaurant.image}}"
-              alt="">
-            <div class="card-body p-3">
-              <h6 class="card-title mb-1">{{restaurant.name}}</h6>
-
-              <div class="restaurant-category mb-1">
-                <i class="fas fa-utensils pr-2"></i> {{restaurant.category}}
+    {{#each restaurantsInRows}}
+    <div class="row mb-3">
+      {{#each this}}
+        <div class="col-md-4">
+          <a href="/restaurant/{{this.id}}" class="text-decoration-none">
+            <div class="card h-100">
+              <img src="{{this.image}}" class="card-img-top" alt="{{this.name}}">
+              <div class="card-body">
+                <h5 class="card-title text-dark">{{this.name}}</h5>
+                <p class="card-text text-muted">{{this.category}}</p>
               </div>
-
-              <span class="badge rounded-pill bg-danger font-weight-normal">
-                {{restaurant.rating}}
-                <i class="fas fa-star fa-xs"></i>
-              </span>
-
             </div>
-          </div>
-        </a>
-      </div>
+          </a>
+        </div>
+      {{/each}}
     </div>
     {{/each}}
   </div>
